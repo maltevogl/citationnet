@@ -1,0 +1,9 @@
+**build
+**dist
+*env
+*testlab
+**.egg-info
+*.tox
+**__pycache__
+**.ipynb_checkpoints
+.vscode

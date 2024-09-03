@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% if message %}
+<div class="alert alert-{{ message.level }} alert-dismissible fade show" role="alert">
+  {{ message.text }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}  
+  <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#usage" aria-expanded="false" aria-controls="usage">
+    Usage
+  </button>
+  <div class="collapse container my-3" id="usage">
+     <p>
+       The inital graph is viewed from the side with the requested publication placed in the center of the screen, shown in red.
+       Time ranges from bottom to top, such that newer publications are above the center and older ones below.
+       If viewed from above nodes farer away from the center have more citations.
+     </p>
+     <p>
+       Hover over a node to show DOI, year of publishing, scientific field and the number of citations according to OpenAlex.
+       Click a node to show an infobox for the publication. This box contains a link to the representation on OpenAlex.
+     </p>
+     <p>
+     Click and drag inside the window to rotate the graph. Right-click and drag inside the window to move.
+     Scroll inside the window to zoom in or out.
+     </p>
+     <p>
+     The menu button right next to the sidebar opens and closes the sidebar.
+     Should there be any issues, questions or feature requests, feel free to message
+     <a class="mail" href="mailto:vogl@gea.mpg.de">Malte Vogl</a>.
+     </p>
+  </div>
+  <hr/>
+  <p>
+    Science can sometimes be complex. All of our works are based on others.
+    Explore these relations by creating your own citationnet. Or browse some of the existing once.
+    You will need an ID of a paper you are interested in. But be careful! If the paper is very popular, the network will be too huge!  
+    <ul>
+      <li>Google a publication</li>
+      <li>Find a reference in a printed paper</li>
+      <li>Browse <a target="_blanck" href="https://openalex.org">Open Alex</a></li>
+    </ul>
+  </p>
+  <div class="row align-items-start">
+    <div class="col">
+      <form action="/createdata/" method='post'>
+        <label for="doiInput" class="form-label">Generate data for DOI or OpenAlex ID! Prepend a DOI with "doi:".</label>
+        <div class="input-group my-3">
+          <span class="input-group-text">ID</span>
+          <input type="text" class="form-control" required name="publication" id="doiInput" aria-describedby="Enter DOI or OpenAlex ID">
+          <span class="input-group-text">cited less</span>
+          <input type="number" class="form-control" name="citationlimit" min=2 max=500 value=100 aria-describedby="citationlimit">
+          <span class="input-group-text">x.</span>
+          <button type="submit" class="btn btn-primary">Generate</button>
+        </div>
+      </form>   
+    </div>
+    <div class="col">
+      <form action="/drawnetwork/" method='post'>
+        <label for="filename" class="form-label">Display the citationnet for a prepared dataset.</label>
+        <div class="input-group my-3">
+          <span class="input-group-text" id="basic-doiurl">Dataset</span>
+          <select class="form-select" name="filename" id="filename" aria-label="Select a dataset">
+            {% for elem in files %}
+              <option value='{{ elem }}' name='{{ elem }}'>{{ elem }}</option>
+            {% endfor %}
+          </select>
+          <button type="submit" class="btn btn-primary">Open</button>
+        </div>
+      </form>  
+    </div>
+  </div>
+
+{% endblock %}

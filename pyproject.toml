@@ -1,0 +1,50 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "citationnet"
+version = "2.0.0"
+authors = [
+  { name="Malte Vogl", email="vogl@gea.mpg.de"}
+]
+description = "Create a scientific network visualization."
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "tqdm",
+  "requests",
+  "pandas",
+  "uvicorn",
+  "fastapi",
+  "jinja2",
+  "python-multipart"
+]
+
+[project.urls]
+"Project Homepage" = "https://modelsen.gea.mpg.de"
+"Homepage" = "https://gitlab.gwdg.de/mpigea/dt/citationnet-interface"
+"Issues" = "https://gitlab.gwdg.de/mpigea/dt/citationnet-interface/-/issues"
+
+
+
+[project.optional-dependencies]
+dev = [
+  "tox",
+  "twine",
+  "sphinx",
+  "ruff"
+]
+
+[tool.ruff.lint]
+select = ["ALL"]
+
+[tool.ruff]
+line-length = 120
+ignore = ["S101", "S311", "TD003", "ANN101", "N802", "N803", "N806"]

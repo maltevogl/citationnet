@@ -1,0 +1,37 @@
+{% extends 'index.html' %}
+
+{% block content %}
+{% if message %}
+<div class="alert alert-{{ message.level }} alert-dismissible fade show" role="alert">
+  {{ message.text }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endif %}  
+<div id="3d-graph">
+</div>
+<div id="infobox"></div> 
+
+  <script>
+  let citenet = new citationnet(
+      jsondata = '{{ filepath }}',
+      containerID = "3d-graph"
+    );
+    function toogleView(event) {
+        if (event.code === 'ArrowDown') {
+            citenet.view("side");
+        }
+        if (event.code === 'ArrowUp') {
+            citenet.view("top");
+        }
+    };
+    document.addEventListener('keyup', event => toogleView(event))
+    
+    citenet.loadData();
+    citenet.setNodeProp();
+    citenet.view("side");
+  </script>
+
+{% endblock %}
+

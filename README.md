@@ -1,93 +1,96 @@
-# citationnet-interface
+A FastAPI app to generate and display reference and citation traces of a single publication
+using [OpenAlex](https://openalex.org/).
 
+Documentation is available on [ReadTheDocs](https://citationnet.readthedocs.io/).
 
+# Installation
 
-## Getting started
+tl;dr Use pip
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+~~~bash
+pip install citationnet
+~~~
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Consider using a clean virtual environment to keep your main packages separated.
+Create a new virtual environment and install the package
 
-## Add your files
+~~~bash
+python3 -m venv env
+source env/bin/activate
+pip install citationnet
+~~~
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+# Run the app locally
 
-```
-cd existing_repo
-git remote add origin https://gitlab.gwdg.de/mpigea/dt/citationnet-interface.git
-git branch -M main
-git push -uf origin main
-```
+To run the app activate the virtual environment, change in the folder `src/citationnet` and run
+~~~bash
+uvicorn interface:app
+~~~
 
-## Integrate with your tools
+Now open the adress [http://127.0.0.1:8000](http://127.0.0.1:9000) in your browser and start exploring.
 
-- [ ] [Set up project integrations](https://gitlab.gwdg.de/mpigea/dt/citationnet-interface/-/settings/integrations)
+To close the app, press `CTRL C` in the terminal and close it (on Linux).
 
-## Collaborate with your team
+# Using the interface
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Set auto-merge](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+The button _Usage_ toggles an explanation of the visual representation of the citation network.
 
-## Test and Deploy
+## First query
 
-Use the built-in continuous integration in GitLab.
+To run a query, enter a DOI and press the submit button. For very highly cited papers, the query time is too long. By default there is therefore a limit on the number of citations for the source publication and all other citations (100 citations). The default value can be changed to at most 500 citations.
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing (SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+The end of data generation is signaled by a success message stating the filename and runtime.
 
-***
+## Repeated querying
 
-# Editing this README
+The token is saved in the session cookie and re-used for the next queries. After closing the browser you will need to re-enter the token.
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thanks to [makeareadme.com](https://www.makeareadme.com/) for this template.
+Query results are saved as JSON files in the media folder of the installed Flask package and can be accessed using the
+search input field at the navigation bar.
 
-## Suggestions for a good README
+# Visual representation
 
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+The inital graph is viewed from the side with the requested publication placed in the center of the screen, shown in red. Time ranges from bottom to top, such that newer publications are above the center and older ones below. If viewed from above nodes, farer away from the center have more citations.
 
-## Name
-Choose a self-explaining name for your project.
+Hover over a node to show DOI, year of publishing, fields of research and the number of citations according to Dimensions. Click a node to open the publication using it's DOI.
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+Click and drag inside the window to rotate the graph. Right-click and drag inside the window to move. Scroll inside the window to zoom in or out.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+The menu button right next to the sidebar opens and closes the sidebar, which allows controlling the perspective (side or top), node and edge options as well as some basic layout options (cylinder radius, citation value of outer radius, and spacing around input node).
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+# Testing
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+Tests can be run by installing the _dev_ requirements and running `tox`.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+~~~bash
+pip install citationnet[dev]
+tox
+~~~
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+## Building documentation
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+The documentation is build using _sphinx_. Install with the _dev_ option and run
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+~~~bash
+pip install citationnet[dev]
+tox -e docs
+~~~
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+# Known limitations
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+# Roadmap
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+Currently, no further development is planned.
 
-## License
-For open source projects, say how it is licensed.
+Kindly reach out to us, if this package could be valuable for your work. 
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+# Funding information
+
+The development was originally part of the research project [ModelSEN](https://modelsen.gea.mpg.de)
+
+> Socio-epistemic networks: Modelling Historical Knowledge Processes,
+
+in Department I of the Max Planck Institute for the History of Science, Berlin, Germany
+and funded by the Federal Ministry of Education and Research, Germany (Grant No. 01 UG2131).
+
+The current iteration was created as part of outreach initivatives of the Max Planck Institute for Geoanthropology, Jena, Germany
