@@ -47,12 +47,17 @@ async def get_data(
 
     filepath = generatedata.getNetwork(doi=publication.strip(), citationlimit=citationlimit)
 
-    if not filepath:
+    if isinstance(filepath, tuple):
+        messagetext = f"""
+            Failed to get new data for {publication}.
+            It is cited {filepath[1]} times.
+            Consider increasing the limit!
+        """
         return templates.TemplateResponse(
             "startpage.html",{
                 "request": request,
                 "navigation": nav_menu,
-                "message": {"level":"alert", "text": "Failed to get new data."},
+                "message": {"level":"warning", "text": messagetext},
             },
         )
     return templates.TemplateResponse(

@@ -4,9 +4,7 @@
 {% if message %}
 <div class="alert alert-{{ message.level }} alert-dismissible fade show" role="alert">
   {{ message.text }}
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}  
   <button class="btn btn-outline-success" type="button" data-bs-toggle="collapse" data-bs-target="#usage" aria-expanded="false" aria-controls="usage">
@@ -36,7 +34,8 @@
   <p>
     Science can sometimes be complex. All of our works are based on others.
     Explore these relations by creating your own citationnet. Or browse some of the existing once.
-    You will need an ID of a paper you are interested in. But be careful! If the paper is very popular, the network will be too huge!  
+    You will need an ID of a paper you are interested in and wait a minute or two. But be careful!
+    If the paper is very popular, the network will be too huge and the search takes a very long time!
     <ul>
       <li>Google a publication</li>
       <li>Find a reference in a printed paper</li>
