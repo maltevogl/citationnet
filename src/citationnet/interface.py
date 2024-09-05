@@ -12,7 +12,7 @@ app = FastAPI()
 
 BASE_PATH = Path(__file__).resolve().parent
 DATA_PATH = BASE_PATH / "static" / "data"
-app.mount(str(BASE_PATH / "static"), StaticFiles(directory=str(BASE_PATH / "static")), name="static")
+app.mount("/static", StaticFiles(directory=str(BASE_PATH / "static")), name="static")
 templates = Jinja2Templates(directory=str(BASE_PATH / "templates"))
 
 nav_menu = [
