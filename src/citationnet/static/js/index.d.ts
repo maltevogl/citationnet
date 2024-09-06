@@ -1,1 +1,2 @@
-../../../../../citationnet/lib/index.d.ts
+import { citationnet } from "./citationnet.ts";
+export { citationnet };
