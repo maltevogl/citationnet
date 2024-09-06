@@ -1,0 +1,1 @@
+../../../../../citationnet/lib/citationnet.d.ts
