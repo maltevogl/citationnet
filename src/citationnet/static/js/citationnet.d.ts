@@ -77,9 +77,9 @@ export declare class citationnet {
      * @returns A function taking the node as an argument and returning a strength between 0.0 and 1.0
      */
     static radialStrength(minStrength?: number, maxStrength?: number, min?: number, max?: number): (node: CiteNode, minStrength: number, maxStrength: number, min: number, max: number) => number;
-    static setCylinder(citationnet: CitationNet, radius?: number, outervalue?: number): CitationNet;
-    static setNodeProp(citationnet: CitationNet): CitationNet | undefined;
-    static setLinkStrength(citationnet: CitationNet, strength?: number): CitationNet | undefined;
+    setCylinder(citationnet: CitationNet, radius?: number, outervalue?: number): CitationNet;
+    setNodeProp(citationnet: CitationNet): CitationNet | undefined;
+    setLinkStrength(citationnet: CitationNet, strength?: number): CitationNet | undefined;
     hello(): void;
 }
 export {};
