@@ -76,13 +76,12 @@ async def get_data(
 @app.post("/drawnetwork/")
 async def draw_citationnet(request: Request, filename: Annotated[str, Form()]) -> None:
     """Draw the citationnet for the given filename."""
-    filepath = DATA_PATH / filename
     return templates.TemplateResponse(
         "drawnetwork.html",
         {
             "request": request,
             "navigation": nav_menu,
-            "filepath": filepath,
+            "filename": filename,
         },
     )
 

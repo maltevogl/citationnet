@@ -73,11 +73,7 @@ class GetRecords:
         return ("Abort",startNode["cited_by_count"])
 
     def getCitations(self, worksid:str, level:str = "citation_1") -> str:
-        """Retrieve information for all publications citing the seed publication.
-
-        TODO: We apply citeLimitNodes to citations, but since they are future oriented and
-        might still gather citations later, this is depatable.
-        """
+        """Retrieve information for all publications citing the seed publication."""
         worksidOnly = worksid.split("/")[-1]
         baseCitationRequest = f"{self.baseurl}?filter=cites:{worksidOnly}&mailto={self.email}&per-page=200&cursor="
         entries = "start"
@@ -97,30 +93,27 @@ class GetRecords:
                 entries = []
             time.sleep(0.5)
         for elem in citations:
-            if elem["cited_by_count"] >= self.citeLimitNodes:
-                self.edges.append(
-                    {
-                        "source": elem["id"].split("/")[-1],
-                        "target": worksidOnly,
-                        "year": elem["publication_year"],
-                        "level": level,
-                    },
-                )
+            self.edges.append(
+                {
+                    "source": elem["id"].split("/")[-1],
+                    "target": worksidOnly,
+                    "year": elem["publication_year"],
+                    "level": level,
+                },
+            )
         for elem in citations:
-            if elem["cited_by_count"] >= self.citeLimitNodes:
-                if level == "citation_1":
-                    self.citationIDsL1.append(elem["id"])
-                entry = self._cleanNode(elem)
-                self.nodes.append(
-                    entry,
-                )
+            if level == "citation_1":
+                self.citationIDsL1.append(elem["id"])
+            entry = self._cleanNode(elem)
+            self.nodes.append(
+                entry,
+            )
         return f"{level}"
 
     def getReferences(self, worksid:str, level:str = "reference_1") -> str:
         """Retrieve information for all references of a seed publication.
 
-        Nodes are only considered if they have at least `citeLimitNodes` citations. Links to
-        such nodes are also not considered. First references are obtained for the seed publications.
+        First, references are obtained for the seed publications.
         For each of these references are again gathered in the second step (level = "reference_2").
         """
         worksidOnly = worksid.split("/")[-1]
@@ -141,21 +134,19 @@ class GetRecords:
         if level == "reference_1":
             self.referenceIDsL1 = references
         for elem in referenceList:
-            if elem["cited_by_count"] >= self.citeLimitNodes:
-                self.edges.append(
-                    {
-                        "source": worksidOnly,
-                        "target": elem["id"].split("/")[-1],
-                        "year": elem["publication_year"],
-                        "level": level,
-                    },
-                )
+            self.edges.append(
+                {
+                    "source": worksidOnly,
+                    "target": elem["id"].split("/")[-1],
+                    "year": elem["publication_year"],
+                    "level": level,
+                },
+            )
         for elem in referenceList:
-            if elem["cited_by_count"] >= self.citeLimitNodes:
-                entry = self._cleanNode(elem)
-                self.nodes.append(
-                    entry,
-                )
+            entry = self._cleanNode(elem)
+            self.nodes.append(
+                entry,
+            )
         return f"{level}"
 
     def getNetwork(self, doi:str, citationlimit:int) -> Path:
