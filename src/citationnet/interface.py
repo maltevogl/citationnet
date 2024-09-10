@@ -46,6 +46,7 @@ async def get_data(
     generatedata = GetRecords(email=email, outpath=DATA_PATH)
 
     filepath = generatedata.getNetwork(doi=publication.strip(), citationlimit=citationlimit)
+    currentfiles = [x.name for x in sorted(DATA_PATH.glob("*.json"))]
 
     if isinstance(filepath, tuple):
         messagetext = f"""
@@ -58,8 +59,10 @@ async def get_data(
                 "request": request,
                 "navigation": nav_menu,
                 "message": {"level":"warning", "text": messagetext},
+                "files": currentfiles,
             },
         )
+
     return templates.TemplateResponse(
         "startpage.html",
         {
@@ -69,6 +72,7 @@ async def get_data(
                 "level": "success",
                 "text": f"Finished loading data for {filepath.name}.\nYou can now select the file for displaying.",
             },
+            "files": currentfiles,
         },
     )
 

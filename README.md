@@ -27,7 +27,7 @@ To run the app activate the virtual environment, change in the folder `src/citat
 uvicorn interface:app
 ~~~
 
-Now open the adress [http://127.0.0.1:8000](http://127.0.0.1:9000) in your browser and start exploring.
+Now open the adress [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser and start exploring.
 
 To close the app, press `CTRL C` in the terminal and close it (on Linux).
 

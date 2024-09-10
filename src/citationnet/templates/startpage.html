@@ -45,10 +45,10 @@
   <div class="row align-items-start">
     <div class="col">
       <form action="/createdata/" method='post'>
-        <label for="doiInput" class="form-label">Generate data for DOI or OpenAlex ID! Prepend a DOI with "doi:".</label>
+        <label for="doiInput" class="form-label">You can generate data for a DOI or OpenAlex ID. Prepend a DOI with "doi:".</label>
         <div class="input-group my-3">
           <span class="input-group-text">ID</span>
-          <input type="text" class="form-control" required name="publication" id="doiInput" aria-describedby="Enter DOI or OpenAlex ID">
+          <input type="text" class="form-control" required name="publication" id="doiInput" aria-describedby="Enter DOI or OpenAlex ID. Prepend doi with text 'doi:'">
           <span class="input-group-text">cited less</span>
           <input type="number" class="form-control" name="citationlimit" min=2 max=500 value=100 aria-describedby="citationlimit">
           <span class="input-group-text">x.</span>

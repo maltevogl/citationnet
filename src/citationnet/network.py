@@ -57,6 +57,28 @@ class GetRecords:
         )
         return entry
 
+    def _checkData(self) -> str:
+        """Check the final data for missing nodes.
+
+        TODO(MVogl) This is a workaround for a problem with ID changes in OA data.
+        If a paper is referenced by one ID, but its metadata is accessible
+        only with another ID, the current approach can not resolve this.
+        Thus, edges can be between a given node and a missing node. To
+        circumvent this, associated edges are deleted.
+        """
+        # Delete nodes that have equal or less then citeLimitNodes citations.
+        nodeIDs = [x["id"] for x in self.nodes if x["cited_by_count"] > self.citeLimitNodes]
+        nodes = [x for x in self.nodes if x["id"] in nodeIDs]
+        sourceIDs = [x["source"] for x in self.edges]
+        targetIDs = [x["target"] for x in self.edges]
+        missingSource = set([x for x in sourceIDs if x not in nodeIDs])
+        missingTarget = set([x for x in targetIDs if x not in nodeIDs])
+        # Delete edges where source or target are not found
+        if missingSource or missingTarget:
+            print("Found missing node information. Deleting related edges.")
+            return nodes, [x for x in self.edges if x["source"] not in missingSource and x["target"] not in missingTarget]
+        return nodes, self.edges
+
     def getStart(self, doi:str, citationlimit: int) -> None:
         """Retrieve information for seed publication."""
         queryRes = requests.get(f"{self.baseurl}/{doi}", timeout=5)
@@ -126,7 +148,7 @@ class GetRecords:
         referenceList = []
         for elem in refParts:
             splitIDs = [x.split("/")[-1] for x in elem]
-            query = f"{self.baseurl}?filter=openalex:{"|".join(splitIDs)}&mailto={self.email}&per-page=100"
+            query = f"{self.baseurl}?filter=openalex:{'|'.join(splitIDs)}&mailto={self.email}&per-page=100"
             workVals = self._checkReturn(
                 requests.get(query, timeout=5),
             )
@@ -171,10 +193,13 @@ class GetRecords:
             self.getReferences(elem, level="references_2")
         for elem in tqdm(self.citationIDsL1, leave=False):
             self.getCitations(elem, level="citation_2")
-        dedup_nodes = [dict(t) for t in {tuple(d.items()) for d in self.nodes}]
-        outformat = {"nodes": dedup_nodes, "links": self.edges}
+        # Solve a problem with missing node metadata.
+        clean_nodes, clean_edges = self._checkData()
+        # Remove double entries in node data.
+        dedup_nodes = [dict(t) for t in {tuple(d.items()) for d in clean_nodes}]
+        outformat = {"nodes": dedup_nodes, "links": clean_edges}
         firstauthor = self.startNode["authorships"][0]["author"]["display_name"].split()
-        outfile = Path(self.outpath, f"{"_".join(firstauthor)}_{self.startNode["id"].split("/")[-1]}.json")
+        outfile = Path(self.outpath, f"{'_'.join(firstauthor)}_{self.startNode['id'].split('/')[-1]}.json")
         with outfile.open("w", encoding="utf8") as ofile:
             json.dump(outformat, ofile, ensure_ascii=True)
         return outfile
