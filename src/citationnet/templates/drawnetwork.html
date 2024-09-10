@@ -16,76 +16,23 @@
   <button class="btn btn-outline-success float-left openbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">☰</button>
 </div>
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="sidebarLabel">Options</h5>
-    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div>
-    <h6>Toggle views</h6>
-      <ul class="list-group mb-2">
-        <a class="list-group-item" id="btnTopView" onclick="citenet.view('top')">Top view (Arrow Up)</a>
-        <a class="list-group-item" href="javascript:void(0)" id="btnSideView" onclick="citenet.view('side')">Side view (Arrow Down)</a>
-        <a class="list-group-item" href="javascript:void(0)" id="btnFORChart" onclick="toggleFORChart()">Fields of Research</a>
-      </ul>
-    </div>
-    <div class="my-2">
-      <h6>Node options</h6>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="toggleNodeSize" onclick="citationnet.toggleNodeSize(citenet)" checked>
-        <label class="form-check-label" for="toogleNodeSize">Size by number of citations</label>
-      </div>
-      <ul class="list-group">
-        <a class="list-group-item" href="javascript:void(0)" id="btnNodeSize" onclick="window.net.toggleNodeSize()">Size by number of citations</a>
-        <a class="list-group-item" type="button" data-bs-toggle="collapse" data-bs-target="#relnodesize" aria-expanded="false" aria-controls="relnodesize">Relative node size</a>
-      </ul>
-      <div class="collapse input-group my-2" id="relnodesize">
-        <input type="range" min="0.1" max="1.0" value="0.5" step="0.1" class="slider" id="rngNodeSize">
-        <button class="btn btn-primary" onclick="window.net.readNodeSize()">set</button>
-      </div>
-    </div>
-    <div class="mb-2">
-      <h6>Edge options</h6>
-      <ul class="list-group">
-        <a class="list-group-item" href="javascript:void(0)" id="btnEdgesOnlyInput" onclick="window.net.toggleEdgesOnlyInput()">Edges of input only</a>
-      </ul>
-    </div>
-    <div>
-      <h6>Layout options</h6>
-      <ul class="list-group">
-        <a class="list-group-item" type="button" data-bs-toggle="collapse" data-bs-target="#cylinderradius" aria-expanded="false" aria-controls="cylinderradius">Cylinder radius</a>
-      <a class="list-group-item" type="button" data-bs-toggle="collapse" data-bs-target="#outerringvalue" aria-expanded="false" aria-controls="outerringvalue">Outer value</a>
-      <a class="list-group-item" href="javascript:void(0)" id="btnDistanceFromInputNode" onclick="window.net.toggleDistanceFromInputNode()"
-        style="font-weight: bold;">Spacing around input</a>
-      </ul>
-      <div class="collapse input-group my-2" id="cylinderradius">
-        <input type="range" min="0" max="500" value="350" class="slider" id="rngLayoutRadius">
-        <button class="btn btn-primary" onclick="window.net.readLayout()">set</button>
-      </div>
-      <div class="collapse input-group my-2" id="outerringvalue">
-        <input type="range" min="0" max="1000" value="800" class="slider" id="rngLayoutOuterValue">
-        <button class="btn btn-primary" onclick="window.net.readLayout()">set</button>
-      </div>
-    </div>
-  </div>
-</div> 
+{% include 'control.html' %}
 
-  <script>
-  let citenet = new citationnet.citationnet(
-      jsondata = "/static/data/{{ filename }}",
-      containerID = "3d-graph"
-    );
-    
-    document.addEventListener('keyup', event => citationnet.toogleView(event, citenet))
-    
-    citenet.loadData();
-    citenet.setNodeProp();
-    citenet.setLinkStrength();
-    citenet.setCylinder();
-    citenet.view("side");
-    citenet.graph.onEngineStop(() => citenet.graph.zoomToFit(400))
-  </script>
+<script>
+let citenet = new citationnet.citationnet(
+    jsondata = "/static/data/{{ filename }}",
+    containerID = "3d-graph"
+  );
+  
+  document.addEventListener('keyup', event => citationnet.toogleView(event, citenet))
+  
+  citenet.loadData();
+  citenet.setNodeProp();
+  citenet.setLinkStrength();
+  citenet.setCylinder();
+  citenet.view("side");
+  citenet.graph.onEngineStop(() => citenet.graph.zoomToFit(400))
+</script>
 
 {% endblock %}
 

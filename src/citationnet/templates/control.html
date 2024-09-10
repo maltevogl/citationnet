@@ -1,0 +1,48 @@
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="sidebar" aria-labelledby="sidebarLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="sidebarLabel">Options</h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <h6>Toggle views</h6>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="topview" value="option1" checked>
+            <label class="form-check-label" for="topview">
+                Top view (Arrow Up)
+            </label>
+            </div>
+            <div class="form-check mb-4">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="sideview" value="option2">
+            <label class="form-check-label" for="sideview">
+                Side view (Arrow Down)
+            </label>
+        </div>
+        <h6>Node options</h6>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggleNodeSize" onclick="citationnet.toggleNodeSize(citenet)" checked>
+            <label class="form-check-label" for="toogleNodeSize">Size by number of citations</label>
+        </div>
+        <div class="form-check form-switch mb-4">
+            <label for="relativeNodeSize" class="form-label">Relative node size</label>
+            <input type="range" class="form-range" min="0.1" max="1.0" step="0.1" id="relativeNodeSize">
+        </div>
+        <h6>Edge options</h6>
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" id="toggleSourceEdges" onclick="citationnet.toggleSourceEdges(citenet)">
+            <label class="form-check-label" for="toogleSourceEdges">Source edges only</label>
+        </div>
+        <h6>Layout options</h6>
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="toggleSourceDistance" onclick="citationnet.toggleDistanceSource(citenet)">
+            <label class="form-check-label" for="toogleSourceDistance">Distance to source node</label>
+        </div>
+        <div class="form-check form-switch">
+            <label for="maximalcitation" class="form-label">Value for citations on outer ring</label>
+            <input type="range" class="form-range" min="10" max="3000" step="10" value="500" id="maximalcitation">
+        </div>
+        <div class="form-check form-switch">
+            <label for="cylinderradius" class="form-label">Radius of cylinder</label>
+            <input type="range" class="form-range" min="10" max="500" step="10" value="200" id="cylinderradius">
+        </div>
+    </div>
+</div> 
