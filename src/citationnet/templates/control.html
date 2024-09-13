@@ -6,13 +6,13 @@
     <div class="offcanvas-body">
         <h6>Toggle views</h6>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="topview" value="option1" checked>
+            <input class="form-check-input" type="radio" name="exampleRadios" id="topview" value="option1" onchange="citationnet.toggleGraphView(citenet)" checked>
             <label class="form-check-label" for="topview">
                 Top view (Arrow Up)
             </label>
             </div>
             <div class="form-check mb-4">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="sideview" value="option2">
+            <input class="form-check-input" type="radio" name="exampleRadios" id="sideview" value="option2" onchange="citationnet.toggleGraphView(citenet)">
             <label class="form-check-label" for="sideview">
                 Side view (Arrow Down)
             </label>

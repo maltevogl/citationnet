@@ -24,7 +24,7 @@ let citenet = new citationnet.citationnet(
     containerID = "3d-graph"
   );
   
-  document.addEventListener('keyup', event => citationnet.toogleView(event, citenet))
+  document.addEventListener('keyup', event => citationnet.toggleView(event, citenet))
   
   citenet.loadData();
   citenet.setNodeProp();
