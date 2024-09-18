@@ -52,9 +52,14 @@ class GetRecords:
         entry.update(
             {"id": worksidOnly},
         )
-        entry.update(
-            {"topic": topicVal},
-        )
+        if isinstance(topicVal,str):
+            entry.update(
+                {"topic": topicVal},
+            )
+        else:
+            entry.update(
+                {"topic": "None"},
+            )
         return entry
 
     def _checkData(self) -> str:
@@ -104,7 +109,7 @@ class GetRecords:
         page = 1
         while entries:
             citationVals = self._checkReturn(
-                requests.get(citationRequest, timeout=5),
+                requests.get(citationRequest, timeout=15),
             )
             citations.extend(citationVals["results"])
             if citationVals["meta"]["next_cursor"]:
@@ -150,7 +155,7 @@ class GetRecords:
             splitIDs = [x.split("/")[-1] for x in elem]
             query = f"{self.baseurl}?filter=openalex:{'|'.join(splitIDs)}&mailto={self.email}&per-page=100"
             workVals = self._checkReturn(
-                requests.get(query, timeout=5),
+                requests.get(query, timeout=15),
             )
             referenceList.extend(workVals["results"])
         if level == "reference_1":
