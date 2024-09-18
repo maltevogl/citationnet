@@ -33,16 +33,12 @@
         </div>
         <h6>Layout options</h6>
         <div class="form-check form-switch">
-            <input class="form-check-input" type="checkbox" id="toggleSourceDistance" onclick="citationnet.toggleDistanceSource(citenet)">
-            <label class="form-check-label" for="toogleSourceDistance">Distance to source node</label>
-        </div>
-        <div class="form-check form-switch">
             <label for="maximalcitation" class="form-label">Value for citations on outer ring</label>
-            <input type="range" class="form-range" min="10" max="3000" step="10" value="500" id="maximalcitation">
+            <input type="range" class="form-range" min="10" max="3000" step="10" value="500" id="maximalcitation"  onchange="citationnet.setCylinderValue(citenet)">
         </div>
         <div class="form-check form-switch">
             <label for="cylinderradius" class="form-label">Radius of cylinder</label>
-            <input type="range" class="form-range" min="10" max="500" step="10" value="200" id="cylinderradius">
+            <input type="range" class="form-range" min="10" max="500" step="10" value="200" id="cylinderradius"  onchange="citationnet.setCylinderValue(citenet)">
         </div>
     </div>
 </div> 
