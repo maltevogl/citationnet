@@ -6,16 +6,20 @@
     <div class="offcanvas-body">
         <h6>Toggle views</h6>
         <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="topview" value="option1" onchange="citationnet.toggleGraphView(citenet)" checked>
+            <input class="form-check-input" type="radio" name="topview" id="topview" onchange="citationnet.toggleGraphView(citenet)" checked>
             <label class="form-check-label" for="topview">
-                Top view (Arrow Up)
+                Top view (&uarr;)
             </label>
-            </div>
-            <div class="form-check mb-4">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="sideview" value="option2" onchange="citationnet.toggleGraphView(citenet)">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="topview" id="sideview" onchange="citationnet.toggleGraphView(citenet)">
             <label class="form-check-label" for="sideview">
-                Side view (Arrow Down)
+                Side view (&darr;)
             </label>
+        </div>
+        <div class="form-check form-switch mb-4">
+            <input class="form-check-input" type="checkbox" name="togglePieChart" id="togglePieChart" onclick="citationnet.togglePieChart(citenet)">
+            <label class="form-check-label" for="togglePieChart">Show field overview</label>
         </div>
         <h6>Node options</h6>
         <div class="form-check form-switch">

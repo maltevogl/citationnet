@@ -16,7 +16,8 @@ app.mount("/static", StaticFiles(directory=str(BASE_PATH / "static")), name="sta
 templates = Jinja2Templates(directory=str(BASE_PATH / "templates"))
 
 nav_menu = [
-    {"caption": "Home", "href": "/"},
+    {"caption": "Create or select", "href": "/"},
+    {"caption": "Read more", "href": "https://modelsen.gea.mpg.de"},
 ]
 
 

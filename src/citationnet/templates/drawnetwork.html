@@ -15,7 +15,7 @@
 <div id="citationnet-main">
   <button class="btn btn-outline-success float-left openbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">☰</button>
 </div>
-<div id="piechart" class="piechart">
+<div id="piechart" class="piechart" hidden>
 </div>
 
 {% include 'control.html' %}
@@ -33,7 +33,6 @@ let citenet = new citationnet.citationnet(
   citenet.setLinkStrength();
   citenet.setCylinder();
   citenet.view("side");
-  citenet.createPieChart();
 </script>
 
 {% endblock %}
