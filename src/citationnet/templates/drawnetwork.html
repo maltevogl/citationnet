@@ -11,7 +11,6 @@
 {% endif %}  
 <div id="3d-graph" style="position: fixed; top: 75px; height:100px; left: 0px;">
 </div>
-<div id="infobox" class="container"></div>
 <div id="citationnet-main">
   <button class="btn btn-outline-success float-left openbtn" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar">☰</button>
 </div>
@@ -21,7 +20,7 @@
 {% include 'control.html' %}
 
 <script>
-let citenet = new citationnet.citationnet(
+let citenet = new citationnet.CitationNet(
     jsondata = "/static/data/{{ filename }}",
     containerID = "3d-graph"
   );
