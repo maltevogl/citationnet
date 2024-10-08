@@ -7,7 +7,7 @@ from fastapi import FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from .network import GetRecords
+from citationnet.network import GetRecords
 
 app = FastAPI()
 
@@ -80,7 +80,10 @@ async def get_data(
 
 
 @app.post("/drawnetwork/")
-async def draw_citationnet(request: Request, filename: Annotated[str, Form()]) -> None:
+async def draw_citationnet(
+    request: Request,
+    filename: Annotated[str, Form()],
+) -> None:
     """Draw the citationnet for the given filename."""
     return templates.TemplateResponse(
         "drawnetwork.html",

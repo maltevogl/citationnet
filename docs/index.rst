@@ -1,8 +1,3 @@
-.. SemanticLayerTools documentation master file, created by
-   sphinx-quickstart on Fri Sep 24 14:43:14 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 CitationNet visualization
 =========================
 
