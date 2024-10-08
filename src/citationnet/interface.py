@@ -6,7 +6,8 @@ import uvicorn
 from fastapi import FastAPI, Form, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from network import GetRecords
+
+from .network import GetRecords
 
 app = FastAPI()
 

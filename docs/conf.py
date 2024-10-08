@@ -22,7 +22,7 @@ copyright = '2024, Malte Vogl (ModelSEN)'
 author = 'Malte Vogl, Robert Egel'
 
 # The full version, including alpha/beta/rc tags
-release = '2.0.0'
+release = '2.1.0'
 
 master_doc = 'index'
 
@@ -35,7 +35,7 @@ master_doc = 'index'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.intersphinx',
-    'm2r2'
+    'myst_parser',
 ]
 
 # Add any paths that contain templates here, relative to this directory.

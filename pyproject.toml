@@ -24,7 +24,8 @@ dependencies = [
   "uvicorn",
   "fastapi",
   "jinja2",
-  "python-multipart"
+  "python-multipart",
+  "httpx"
 ]
 
 [project.urls]
@@ -39,7 +40,8 @@ dev = [
   "tox",
   "twine",
   "sphinx",
-  "ruff"
+  "ruff",
+  "myst-parser"
 ]
 
 [tool.ruff.lint]
