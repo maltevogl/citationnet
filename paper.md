@@ -2,6 +2,8 @@
 title: 'CitationNet: Visualizing scientific reference networks in 3D.'
 tags:
   - Python
+  - Typescript
+  - 3D
   - scientometrics
   - history of science
 authors:

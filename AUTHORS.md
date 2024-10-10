@@ -1,14 +1,8 @@
-=======
-Credits
-=======
-
-Development Lead
-----------------
+# Development Lead
 
 * Malte Vogl <vogl@gea.mpg.de>
 
-Contributors
-------------
+# Contributors
 
 * Robert Egel
 * Rebecca Sutton Koeser <https://github.com/rlskoeser>
