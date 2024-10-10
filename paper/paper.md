@@ -17,7 +17,7 @@ affiliations:
    index: 1
    ror: 00js75b59
 date: 15 October 2024
-bibliography: paper.bib
+bibliography: paper/paper.bib
 ---
 
 # Summary
@@ -38,12 +38,9 @@ Citations to entries in paper.bib should be in
 format.
 
 If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
+citation) then you can do it with the example BibTeX entry below. @monastersky_2019:2019
 
-For a quick reference, the following citation commands can be used:
-- @monastersky_2019:2019
-- @vogl_2022_7346907:2023
-- `@monastersky_2019:2019`
+For a quick reference, the following citation commands can be used: @vogl_2022_7346907:2023
 
 # Figures
 
