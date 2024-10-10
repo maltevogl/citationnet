@@ -74,6 +74,61 @@ pip install citationnet[dev]
 tox -e docs
 ~~~
 
+# Javascript: Citationnet JS
+
+The javascript part of the software is published as an independent package on npmjs.com.
+
+Generates a 3D graph of publications linked by citations and references. This package is part of the citationnet software. 
+
+The package is based on the [3D Force Graph](https://github.com/vasturiano/3d-force-graph) package and defines node parameters such that a cylinder geometry emerges. 
+The z-Axis corresponds to the publication year, such that older publications are arranged towards the bottom. On each year circle, a radial force distributes publications
+of the given year such, that towards the inner axis, less cited papers are grouped. All publications with citations larger then a fixed limit are arranged on the outer 
+circle. 
+
+Interaction with the graph can occur via mouse, via an un-foldable menu or with keyboard shortcuts (Arrow-Up / down to select different camera perspectives).
+While hovering over nodes, some basic data for the publication is shown. Clicking on a node opens an info box with a link to the source data at OpenAlex.org.
+
+The package is used in an interface, that allows queries to OpenAlex for generating new datasets. The input JSON dataset needs to have the form of a list of nodes and links:
+```
+{ "node": [
+    "id": string,
+    "publication_year": number,
+    "cited_by_count": number,
+    "topic": string
+], 
+"links":[
+    "source": string,
+    "target": string, 
+    "year": number,
+    "level": string
+]}
+```
+where nodes are dictionaries containing an `id`, `publication year`, `cited by count`, and `topic` key. Additionally, the source publication used for generating the dataset contains the key `isSource`. For each publication a z-coordinate value `fz` is precalculated during dataset generation, corresponding to the scaled distance in years to the source publication, e.g. `5*(1995 - 2020)` for a publication in 2020 which references a paper from 1995.
+
+The links contain information about `source` and `target` nodes, the `year` of the link and a `level` information. See network code of the interface part for details [MPIGEA / Interface](https://gitlab.gwdg.de/mpigea/dt/citationnet-interface) 
+
+## Development
+
+The package is written in Typescript and includes some CSS definitions for the info box and options menu design. The configurations can be found at the source code repo at the [MPIGEA / Javascript](https://gitlab.gwdg.de/mpigea/dt/citationnet).
+
+Run 
+```
+npm run build
+```
+
+to build a new version. 
+
+Testing is not yet implemented, but should be run with Mocha.
+```
+npm run test
+``` 
+
+To calculate the hash of a new version to be used in the Content Security Policy header use the following one-liner for each file (js/css)
+```bash
+cat citationnet.(css|js) | openssl dgst -sha384 -binary | openssl base64 -A
+```
+
+
 # Known limitations
 
 # Roadmap

@@ -1,0 +1,56 @@
+{
+  "name": "citationnet",
+  "version": "2.1.0",
+  "description": "Visualize a 3D reference and citation network in time.",
+  "main": "dist/citationnet.js",
+  "types": "dist/citationnet.d.ts",
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup --bundleConfigAsCjs -c",
+    "test": "mocha -r jsdom-global/register -r ignore-styles --import=tsx ./tests/**/*.ts",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.gwdg.de/mpigea/dt/citationnet"
+  },
+  "keywords": [
+    "3D",
+    "citation",
+    "reference",
+    "science",
+    "communication"
+  ],
+  "author": "Malte Vogl",
+  "license": "MIT",
+  "dependencies": {
+    "3d-force-graph": "^1.73.3",
+    "d3": "^7.9.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/chai": "^4.3.19",
+    "@types/d3": "^7.4.3",
+    "@types/d3-force": "^3.0.10",
+    "@types/mocha": "^10.0.7",
+    "chai": "^4.5.0",
+    "ignore-styles": "^5.0.1",
+    "jsdom": "^25.0.0",
+    "jsdom-global": "^3.0.2",
+    "mocha": "^10.7.3",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.21.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "tslib": "^2.7.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.5.4"
+  }
+}

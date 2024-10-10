@@ -69,7 +69,7 @@ class GetRecords:
         If a paper is referenced by one ID, but its metadata is accessible
         only with another ID, the current approach can not resolve this.
         Thus, edges can be between a given node and a missing node. To
-        circumvent this, associated edges are deleted.
+        circumvent this, associated edges are deleted!
         """
         # Delete nodes that have equal or less then citeLimitNodes citations.
         nodeIDs = [x["id"] for x in self.nodes if x["cited_by_count"] > self.citeLimitNodes]

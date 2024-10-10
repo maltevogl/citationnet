@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "sourceMap": true,
+    "lib": ["dom", "es2015"],
+    "allowImportingTsExtensions": true
+  },
+  "include": ["src/citationnet-js/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
