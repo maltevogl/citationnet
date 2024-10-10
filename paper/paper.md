@@ -9,6 +9,7 @@ tags:
 authors:
   - name: Malte Vogl
     orcid: 0000-0002-2683-6610
+    corresponding: true
     affiliation: 1
 
 affiliations:
@@ -40,6 +41,8 @@ If you want to cite a software repository URL (e.g. something on GitHub without 
 citation) then you can do it with the example BibTeX entry below for @fidgit.
 
 For a quick reference, the following citation commands can be used:
+- @monastersky_2019:2019
+- @vogl_2022_7346907:2023
 - `@monastersky_2019:2019`
 
 # Figures
