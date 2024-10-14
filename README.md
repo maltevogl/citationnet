@@ -1,6 +1,6 @@
 # CitationNet
 
-![NPM Version](https://img.shields.io/npm/v/citationnet.svg) ![PyPI](https://img.shields.io/pypi/v/citationnet?label=pypi%20package) [![Documentation Status](https://readthedocs.org/projects/citationnet/badge/?version=latest)](https://citationnet.readthedocs.io/en/latest/?badge=latest) 
+![NPM Version](https://img.shields.io/npm/v/citationnet.svg) ![PyPI](https://img.shields.io/pypi/v/citationnet?label=pypi%20package) [![DH community code review: June 2024](https://img.shields.io/badge/DHCodeReview-July_2024-blue)](https://github.com/DHCodeReview/citationnet/pull/1) [![Documentation Status](https://readthedocs.org/projects/citationnet/badge/?version=latest)](https://citationnet.readthedocs.io/en/latest/?badge=latest)
 
 
 A FastAPI app to generate and display reference and citation traces of a single publication
