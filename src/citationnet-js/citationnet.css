@@ -1,0 +1,176 @@
+ /* The infobox - position it at the bottom and in the middle of the screen */
+ [id^="infobox-"] {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color:#fff; /* Black background color */
+    color: #333; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 8px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+  }
+  
+  /* Show the info box when clicking on a button (class added with JavaScript) */
+  [id^="infobox-"].show {
+    /* Add animation: Take 2.5 seconds to fade in and out.
+    However, delay the fade out process for 7.5 seconds
+    animation: fadein 1.5s, fadeout 1.5s 7s; */
+    animation-name: fadein, stay, fadeout;
+    animation-duration: 1500ms, 4000ms, 1500ms;
+    animation-delay: 0ms, 1500ms, 5500ms; /* add this */
+    animation-timing-function: ease-in-out, linear, ease-in;
+    animation-iteration-count: 1, 1, 1;
+  }
+
+  [id^="infobox-"]:hover {
+    animation-play-state: paused;
+  }
+  
+  /* Animations to fade the snackbar in and out */
+  
+  @keyframes fadein {
+    from {bottom: 0; opacity: 0; visibility: hidden;}
+    to {bottom: 30px; opacity: 1; visibility: visible;}
+  }
+
+  @keyframes stay {
+    from {bottom: 30px; opacity: 1; visibility: visible;}
+    to {bottom: 30px; opacity: 1; visibility: visible;}
+  }
+  
+  @keyframes fadeout {
+    from {bottom: 30px; opacity: 1; visibility: visible;}
+    to {bottom: 0; opacity: 0; visibility: hidden;}
+  } 
+
+  .tooltip {
+    position: absolute;
+    text-align: center;
+    width: 120px;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #fff;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+
+  .sidebar {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    top: 75px;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    color: #818181;
+    height: fit-content;
+    margin-top: 10em;
+    /* padding-top: 32px; */
+  }
+  
+  .sidebar a {
+    padding: 0px 10px 8px 32px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    display: block;
+    transition: 0s;
+  }
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidebar p {
+    padding: 0px 0px 0px 16px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.0s;
+  }
+  
+  .sidebar button {
+    text-decoration: none;
+    font-size: 20px;
+    color: #818181;
+    /* display: block; */
+    transition: 0.0s;
+    background-color: transparent;
+    border: 0mm;
+  }
+
+  .sidebar button:hover {
+    color: #f1f1f1;
+  }
+
+  .sidebar .usage .body {
+    padding-left: 32px; 
+    padding-right: 16px; 
+    font-size: 16px; 
+    color: #818181;
+  }
+
+  .sidebar .usage a {
+    font-size: 16px;
+    color: #818181;
+    display: inline;
+    padding: 0%;
+  }
+  .sidebar .usage a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidebar .usage p:hover {
+    color: #f1f1f1;
+  }
+
+  .sidebar .slider {
+    width: 210px;
+  }
+  
+  .sidebar .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  /* .piechart {
+    z-index: 1;
+  } */
+  
+  .openbtn {
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #867a7a;
+    color: #fff;
+    padding: 10px 15px;
+    border: #ffffff;
+    z-index: 5000;
+  }
+  
+  .openbtn:hover {
+    background-color: #ff0000;
+  }
+  
+  #citationnet-main {
+    position: relative;
+    top: 0;
+    margin-left: 300px;
+    width: fit-content;
+    transition: margin-left .5s;
+    padding: 16px;
+    background-color: transparent;
+  }
