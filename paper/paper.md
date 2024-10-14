@@ -30,7 +30,7 @@ The nodes are arranged in cylinder coordinates such that the publication time is
 
 The visualization is fully interactive and allows zooming, panning and rotating the graph By clicking on a node a small info box is shown, that allows to access the original data entry at OpenAlex.
 
-![3D Graph with pie chart and info box.\label{fig:visual}](../docs/_static/visualization.png){ width=40% }
+![3D Graph with pie chart and info box.\label{fig:visual}](../docs/_static/visualization.png){ width=75% }
 
 The interface additionally allows to open a pie chart showing the relative amounts of research topics present in the collected publications. 
 
