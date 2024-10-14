@@ -30,8 +30,8 @@ dependencies = [
 
 [project.urls]
 "Project Homepage" = "https://modelsen.gea.mpg.de"
-"Homepage" = "https://gitlab.gwdg.de/mpigea/dt/citationnet-interface"
-"Issues" = "https://gitlab.gwdg.de/mpigea/dt/citationnet-interface/-/issues"
+"Homepage" = "https://gitlab.gwdg.de/mpigea/dt/citationnet"
+"Issues" = "https://gitlab.gwdg.de/mpigea/dt/citationnet/-/issues"
 
 
 

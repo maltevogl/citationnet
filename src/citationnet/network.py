@@ -1,4 +1,5 @@
 """Generate the network data via API calls to OpenAlex."""
+
 import json
 import time
 from pathlib import Path
@@ -10,7 +11,7 @@ from tqdm.autonotebook import tqdm
 class GetRecords:
     """The main class."""
 
-    def __init__(self, email:str, outpath: Path, citeLimitNodes:int = 1) -> None:
+    def __init__(self, email: str, outpath: Path, citeLimitNodes: int = 1) -> None:
         """Init the class."""
         endpoint = "works"
         self.baseurl = f"https://api.openalex.org/{endpoint}"
@@ -32,14 +33,20 @@ class GetRecords:
         """Check the return value."""
         if query.status_code == 200:
             return query.json()
-        text = f"Error from API: Return code {query.status_code} \nfor query {query.url}."
+        text = (
+            f"Error from API: Return code {query.status_code} \nfor query {query.url}."
+        )
         raise ValueError(text)
 
-    def _cleanNode(self, elem:dict) -> dict:
+    def _cleanNode(self, elem: dict) -> dict:
         """Find the required fields and topic information."""
-        entry = {x:y for x,y in elem.items() if x in self.fields}
+        entry = {x: y for x, y in elem.items() if x in self.fields}
         prim_topic = entry.get("primary_topic", {})
-        topicVal = prim_topic.get("field", {}).get("display_name", None) if prim_topic else None
+        topicVal = (
+            prim_topic.get("field", {}).get("display_name", None)
+            if prim_topic
+            else None
+        )
         entry.pop("primary_topic")
         worksid = entry["id"]
         worksidOnly = worksid.split("/")[-1]
@@ -52,7 +59,7 @@ class GetRecords:
         entry.update(
             {"id": worksidOnly},
         )
-        if isinstance(topicVal,str):
+        if isinstance(topicVal, str):
             entry.update(
                 {"topic": topicVal},
             )
@@ -72,7 +79,9 @@ class GetRecords:
         circumvent this, associated edges are deleted!
         """
         # Delete nodes that have equal or less then citeLimitNodes citations.
-        nodeIDs = [x["id"] for x in self.nodes if x["cited_by_count"] > self.citeLimitNodes]
+        nodeIDs = [
+            x["id"] for x in self.nodes if x["cited_by_count"] > self.citeLimitNodes
+        ]
         nodes = [x for x in self.nodes if x["id"] in nodeIDs]
         sourceIDs = [x["source"] for x in self.edges]
         targetIDs = [x["target"] for x in self.edges]
@@ -81,25 +90,29 @@ class GetRecords:
         # Delete edges where source or target are not found
         if missingSource or missingTarget:
             print("Found missing node information. Deleting related edges.")
-            return nodes, [x for x in self.edges if x["source"] not in missingSource and x["target"] not in missingTarget]
+            return nodes, [
+                x
+                for x in self.edges
+                if x["source"] not in missingSource and x["target"] not in missingTarget
+            ]
         return nodes, self.edges
 
-    def getStart(self, doi:str, citationlimit: int) -> None:
+    def getStart(self, doi: str, citationlimit: int) -> None:
         """Retrieve information for seed publication."""
         queryRes = requests.get(f"{self.baseurl}/{doi}", timeout=5)
         self.startNode = self._checkReturn(queryRes)
         startNode = self._cleanNode(self.startNode)
         if startNode["cited_by_count"] <= citationlimit:
             startNode.update(
-                {"isSource":True},
+                {"isSource": True},
             )
             self.nodes.append(
                 startNode,
             )
             return ("Continue", startNode["cited_by_count"])
-        return ("Abort",startNode["cited_by_count"])
+        return ("Abort", startNode["cited_by_count"])
 
-    def getCitations(self, worksid:str, level:str = "citation_1") -> str:
+    def getCitations(self, worksid: str, level: str = "citation_1") -> str:
         """Retrieve information for all publications citing the seed publication."""
         worksidOnly = worksid.split("/")[-1]
         baseCitationRequest = f"{self.baseurl}?filter=cites:{worksidOnly}&mailto={self.email}&per-page=200&cursor="
@@ -113,7 +126,9 @@ class GetRecords:
             )
             citations.extend(citationVals["results"])
             if citationVals["meta"]["next_cursor"]:
-                citationRequest = baseCitationRequest + citationVals["meta"]["next_cursor"]
+                citationRequest = (
+                    baseCitationRequest + citationVals["meta"]["next_cursor"]
+                )
                 page += 1
                 entries = "continue"
             else:
@@ -137,7 +152,7 @@ class GetRecords:
             )
         return f"{level}"
 
-    def getReferences(self, worksid:str, level:str = "reference_1") -> str:
+    def getReferences(self, worksid: str, level: str = "reference_1") -> str:
         """Retrieve information for all references of a seed publication.
 
         First, references are obtained for the seed publications.
@@ -149,7 +164,7 @@ class GetRecords:
             requests.get(baseReferenceRequest, timeout=5),
         )
         references = referenceVals["referenced_works"]
-        refParts = [references[i:i + 100] for i in range(0, len(references), 100)]
+        refParts = [references[i : i + 100] for i in range(0, len(references), 100)]
         referenceList = []
         for elem in refParts:
             splitIDs = [x.split("/")[-1] for x in elem]
@@ -176,7 +191,7 @@ class GetRecords:
             )
         return f"{level}"
 
-    def getNetwork(self, doi:str, citationlimit:int) -> Path:
+    def getNetwork(self, doi: str, citationlimit: int) -> Path:
         """Get all citiation and reference information for a seed publication.
 
         Both DOI and the OpenAlex ID can be used to identify the seed.
@@ -204,7 +219,10 @@ class GetRecords:
         dedup_nodes = [dict(t) for t in {tuple(d.items()) for d in clean_nodes}]
         outformat = {"nodes": dedup_nodes, "links": clean_edges}
         firstauthor = self.startNode["authorships"][0]["author"]["display_name"].split()
-        outfile = Path(self.outpath, f"{'_'.join(firstauthor)}_{self.startNode['id'].split('/')[-1]}.json")
+        outfile = Path(
+            self.outpath,
+            f"{'_'.join(firstauthor)}_{self.startNode['id'].split('/')[-1]}.json",
+        )
         with outfile.open("w", encoding="utf8") as ofile:
             json.dump(outformat, ofile, ensure_ascii=True)
         return outfile

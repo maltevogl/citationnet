@@ -1,4 +1,5 @@
 """The interface for querying and displaying citationnets."""
+
 from pathlib import Path
 from typing import Annotated
 
@@ -47,7 +48,9 @@ async def get_data(
     """Retrieve the network for a seed publication."""
     generatedata = GetRecords(email=email, outpath=DATA_PATH)
 
-    filepath = generatedata.getNetwork(doi=publication.strip(), citationlimit=citationlimit)
+    filepath = generatedata.getNetwork(
+        doi=publication.strip(), citationlimit=citationlimit
+    )
     currentfiles = [x.name for x in sorted(DATA_PATH.glob("*.json"))]
 
     if isinstance(filepath, tuple):
@@ -57,10 +60,11 @@ async def get_data(
             Consider increasing the limit!
         """
         return templates.TemplateResponse(
-            "startpage.html",{
+            "startpage.html",
+            {
                 "request": request,
                 "navigation": nav_menu,
-                "message": {"level":"warning", "text": messagetext},
+                "message": {"level": "warning", "text": messagetext},
                 "files": currentfiles,
             },
         )
