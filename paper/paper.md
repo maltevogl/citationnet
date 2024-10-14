@@ -17,45 +17,41 @@ affiliations:
    index: 1
    ror: 00js75b59
 date: 15 October 2024
-bibliography: paper/paper.bib
+bibliography: paper.bib
 ---
 
 # Summary
 
-Science can sometimes be complex. All of scientific work is based on referencing the work of others, and will be the reference for future works. 
+This package provides a query and visualization interface to the [OpenAlex](https://openalex.org/) repository, an open-science knowledge database. For a source publication, the references and citations are extracted (first level). In a second step the references for each of the in level one retrieved references are extracted, as well as the citations of the in level one retrieved citations (second level). The full data is then displayed as a 3D Graph that connects eahc publication to their respective references and citations.
 
-Explore these relations by creating your own CitationNet. Or browse some of the existing once.
-You will need an ID of a paper you are interested in and wait a minute or two. But be careful!
-If the paper is very popular, the network will be too huge and the search takes a very long time!
+Each node of the graph corresponds to a single publication. The color of the node is set by the primary [topic](https://docs.openalex.org/api-entities/topics/topic-object) of the publication and the size is given by the number of citations that publication has accumulated since its publication. 
+
+The nodes are arranged in cylinder coordinates such that the publication time is the z-Axis, i.e. earlier years are to the bottom of the graph. All publications of a given year are arranged on a disk, such that publications at the periphery have a higher number of citations.
+
+The visualization is fully interactive and allows zooming, panning and rotating the graph By clicking on a node a small info box is shown, that allows to access the original data entry at OpenAlex.
+
+![3D Graph and info box.\label{fig:visual}](../docs/_static/citationnet.png)
+
+The interface additionally allows to open a pie chart showing the relative amounts of research topics present in the collected publications. 
 
 # Statement of need
 
+The purpose of this software is to show to scholars and the general public the complex network of scientific publications in a visual manner. For science outreach purposes the tool allows to browse the network of science, e.g. related to publications of a given institution or specific researchers. For scholars in fields like history of science the tool can give valuable insights on the influence of ideas, i.e. how knowledge transitions between disciplines. 
 
-# Citations
+# Related work
 
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
+The package is based on the [3D Force Graph](https://github.com/vasturiano/3d-force-graph) package by Vasco Asturiano (3D Graph) and [D3.js](https://github.com/d3/d3) by Mike Bostock and Contributors (Pie chart).
 
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below. @monastersky_2019:2019
+# Documentation
 
-For a quick reference, the following citation commands can be used: @vogl_2022_7346907:2023
+The query interface of the software is published as a [package](https://pypi.org/project/citationnet/) on PyPI. The 3D visualization is available as a [NPM package](https://www.npmjs.com/package/citationnet). The full documentation is hosted on [ReadTheDocs](https://citationnet.readthedocs.io). The complete source code is available on [Gitlab](https://gitlab.gwdg.de/mpigea/dt/citationnet).
 
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](../docs/_static/citationnet.png){ width=20% }
-and referenced from text using \autoref{fig:example}.
 
 # Acknowledgements
 
-The development was originally part of the research project [ModelSEN](https://modelsen.gea.mpg.de)
+A first version of this package was inspired by the visualizations in celebrating [150 years of Nature](https://www.nature.com/immersive/d42859-019-00121-0/index.html) [@monastersky_2019]. It was developed in collaboration with Robert Egel for the research program on the [history of the Max Planck Society](https://gmpg.mpiwg-berlin.mpg.de) using [DimensionsAI](https://www.dimensions.ai/) data and field of research classification.
 
-> Socio-epistemic networks: Modelling Historical Knowledge Processes,
-
-in Department I of the Max Planck Institute for the History of Science, Berlin, Germany
-and funded by the Federal Ministry of Education and Research, Germany (Grant No. 01 UG2131).
+The development was then continued as part of the research project [ModelSEN](https://modelsen.gea.mpg.de) in Department I of the Max Planck Institute for the History of Science, Berlin, Germany and funded by the Federal Ministry of Education and Research, Germany (Grant No. 01 UG2131).
 
 The current iteration was created as part of outreach initiatives of the Max Planck Institute for Geoanthropology, Jena, Germany
 

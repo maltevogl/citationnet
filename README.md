@@ -113,7 +113,7 @@ The package is used in an interface, that allows queries to OpenAlex for generat
 ```
 where nodes are dictionaries containing an `id`, `publication year`, `cited by count`, `fz` and `topic` key. Additionally, the source publication used for generating the dataset contains the key `isSource`. For each publication a z-coordinate value `fz` is precalculated during dataset generation, corresponding to the scaled distance in years to the source publication, e.g. `5*(1995 - 2020)` for a publication in 2020 which references a paper from 1995.
 
-The links contain information about `source` and `target` nodes, the `year` of the link and a `level` information. See network code of the interface part for details [MPIGEA / Interface](https://gitlab.gwdg.de/mpigea/dt/citationnet-interface) 
+The links contain information about `source` and `target` nodes, the `year` of the link and a `level` information. See network code of the interface part for details [MPIGEA / Interface](https://gitlab.gwdg.de/mpigea/dt/citationnet) 
 
 ## Development
 
